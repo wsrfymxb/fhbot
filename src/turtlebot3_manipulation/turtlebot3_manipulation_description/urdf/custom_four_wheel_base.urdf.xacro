@@ -19,7 +19,7 @@
     
     <link name="${prefix}base_link">    
       <visual>    
-        <origin xyz="0 0 0.03" rpy="0 0 0"/>    
+        <origin xyz="0 0 0.05" rpy="0 0 0"/>    
         <geometry>    
           <box size="0.4 0.4 0.135"/>    
         </geometry>    
@@ -29,14 +29,14 @@
       </visual>    
           
       <collision>    
-        <origin xyz="0 0 0.03" rpy="0 0 0"/>    
+        <origin xyz="0 0 0.05" rpy="0 0 0"/>    
         <geometry>    
           <box size="0.4 0.4 0.135"/>    
         </geometry>    
       </collision>    
           
       <inertial>    
-        <origin xyz="0 0 0.01" rpy="0 0 0"/>    
+        <origin xyz="0.05 0 0.01" rpy="0 0 0"/>    
         <mass value="5.0"/>    
         <inertia ixx="0.2708" ixy="0.0" ixz="0.0"    
                  iyy="0.2708" iyz="0.0"    
@@ -48,7 +48,7 @@
     <joint name="${prefix}wheel_left_joint" type="continuous">    
       <parent link="${prefix}base_link"/>    
       <child link="${prefix}wheel_left_link"/>    
-      <origin xyz="-0.1 0.2 0" rpy="-1.57 0 0"/>    
+      <origin xyz="-0.14 0.185 0" rpy="-1.57 0 0"/>    
       <axis xyz="0 0 1"/>    
     </joint>    
     
@@ -83,7 +83,7 @@
     <joint name="${prefix}wheel_right_joint" type="continuous">    
       <parent link="${prefix}base_link"/>    
       <child link="${prefix}wheel_right_link"/>    
-      <origin xyz="-0.1 -0.2 0" rpy="-1.57 0 0"/>    
+      <origin xyz="-0.14 -0.185 0" rpy="-1.57 0 0"/>    
       <axis xyz="0 0 1"/>    
     </joint>    
     
