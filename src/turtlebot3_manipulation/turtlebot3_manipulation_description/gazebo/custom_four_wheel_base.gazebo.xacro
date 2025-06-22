@@ -4,7 +4,7 @@
   <xacro:macro name="custom_four_wheel_base_gazebo" params="prefix">  
   <xacro:property name="laser_visual"  value="true"/>
   <xacro:property name="camera_visual" value="true"/>
-  <xacro:property name="imu_visual"    value="true"/>
+  <xacro:property name="imu_visual"    value="true"/>  
   
     <gazebo reference="${prefix}base_link">  
       <material>Gazebo/DarkGrey</material>  
@@ -126,7 +126,7 @@
         <always_on>true</always_on>
         <visualize>${camera_visual}</visualize>
         <camera>
-            <horizontal_fov>1.085595</horizontal_fov>
+            <horizontal_fov>0.3</horizontal_fov>
             <image>
                 <width>640</width>
                 <height>480</height>

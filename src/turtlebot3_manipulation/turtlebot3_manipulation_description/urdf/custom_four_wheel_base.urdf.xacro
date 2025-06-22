@@ -224,14 +224,20 @@
     <joint name="${prefix}camera_joint" type="fixed">
       <parent link="${prefix}base_link"/>
       <child link="${prefix}camera_link"/>
-      <origin xyz="0.2 0 0.1175" rpy="0 0 0"/>
+      <origin xyz="0.201 0 0.1" rpy="0 0 0"/>
     </joint>
 
     <link name="${prefix}camera_link">
+      <visual>
+        <origin xyz="0.005 0.011 0.013" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.015 0.030 0.02"/>
+        </geometry>
+      </visual>
       <collision>
         <origin xyz="0.005 0.011 0.013" rpy="0 0 0"/>
         <geometry>
-          <box size="0.015 0.030 0.027"/>
+          <box size="0.015 0.030 0.02"/>
         </geometry>
       </collision>
     </link>
