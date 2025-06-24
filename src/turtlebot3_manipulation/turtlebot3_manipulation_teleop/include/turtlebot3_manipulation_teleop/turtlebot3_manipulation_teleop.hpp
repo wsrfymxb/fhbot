@@ -42,7 +42,7 @@ const char ARM_JOINT_TOPIC[] = "/servo_node/delta_joint_cmds";
 const char GRIPPER_TOPIC[] = "/gripper_controller/gripper_cmd";
 
 const size_t ROS_QUEUE_SIZE = 10;
-const double BASE_LINEAR_VEL_MAX = 0.26;  // m/s
+const double BASE_LINEAR_VEL_MAX = 0.3;  // m/s
 const double BASE_LINEAR_VEL_STEP = 0.01;  // m/s
 
 const double BASE_ANGULAR_VEL_MAX = 1.8;  // rad/s
