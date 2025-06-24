@@ -18,7 +18,7 @@
   <!--导入底盘gazebo配置文件（物理属性，传感器，插件等） -->
   <xacro:include filename="$(find turtlebot3_manipulation_description)/gazebo/custom_four_wheel_base.gazebo.xacro" /> 
 
-  <!--根据参数prefix生成底盘及其gazebo插件 -->
+  <!--根据参数prefix生成底盘及其gazebo插件实例 -->
   <xacro:custom_four_wheel_base prefix="$(arg prefix)" />  
   <xacro:custom_four_wheel_base_gazebo prefix="$(arg prefix)" />
 
@@ -35,7 +35,7 @@
   <xacro:include filename="$(find turtlebot3_manipulation_description)/urdf/arm.urdf.xacro" /> 
   <xacro:include filename="$(find turtlebot3_manipulation_description)/gazebo/arm.gazebo.xacro" />
   -->
-  
+
   <!--
   <xacro:arm prefix="$(arg prefix)" />
   <xacro:arm_gazebo prefix="$(arg prefix)" />
