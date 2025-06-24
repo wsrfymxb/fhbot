@@ -15,9 +15,9 @@ class InitialPoseSetter(Node):
         msg = PoseWithCovarianceStamped()  
         msg.header.frame_id = "map"  
         msg.header.stamp = self.get_clock().now().to_msg()  
-        msg.pose.pose.position.x = -2.0  
-        msg.pose.pose.position.y = -2.0  
-        msg.pose.pose.position.z = 0.01  
+        msg.pose.pose.position.x = 0.001  
+        msg.pose.pose.position.y = 0.001  
+        msg.pose.pose.position.z = 0.001  
         msg.pose.pose.orientation.w = 1.0  
           
         self.publisher.publish(msg)  

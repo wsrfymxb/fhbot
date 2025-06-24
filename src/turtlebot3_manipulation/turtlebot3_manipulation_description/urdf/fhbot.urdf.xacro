@@ -1,0 +1,60 @@
+<?xml version="1.0"?> 
+
+<!--定义机器人模型，命名，启用ros的xml扩展功能xacro -->
+<robot name="turtlebot3_manipulation" xmlns:xacro="http://www.ros.org/wiki/xacro"> 
+
+  <!--参数定义 -->
+  <xacro:arg name="prefix" default="" /> 
+  <xacro:arg name="use_sim" default="false" />
+  <xacro:arg name="use_fake_hardware" default="false" />
+  <xacro:arg name="fake_sensor_commands" default="false" />
+
+  <!--导入材料定义文件 -->
+  <xacro:include filename="$(find turtlebot3_manipulation_description)/gazebo/materials.xacro" /> 
+
+  <!--导入底盘urdf模型 -->
+  <xacro:include filename="$(find turtlebot3_manipulation_description)/urdf/custom_four_wheel_base.urdf.xacro" /> 
+    
+  <!--导入底盘gazebo配置文件（物理属性，传感器，插件等） -->
+  <xacro:include filename="$(find turtlebot3_manipulation_description)/gazebo/custom_four_wheel_base.gazebo.xacro" /> 
+
+  <!--根据参数prefix生成底盘及其gazebo插件 -->
+  <xacro:custom_four_wheel_base prefix="$(arg prefix)" />  
+  <xacro:custom_four_wheel_base_gazebo prefix="$(arg prefix)" />
+
+  <!--定义固定关节连接基座与机械臂 -->
+  <!--
+  <joint name="$(arg prefix)base_fixed" type="fixed">  
+    <parent link="$(arg prefix)base_link"/>  
+    <child link="$(arg prefix)link1"/>  
+    <origin xyz="0.0 0.0 0.1175" rpy="0 0 0"/>  
+  </joint>
+  -->
+
+  <!--
+  <xacro:include filename="$(find turtlebot3_manipulation_description)/urdf/arm.urdf.xacro" /> 
+  <xacro:include filename="$(find turtlebot3_manipulation_description)/gazebo/arm.gazebo.xacro" />
+  -->
+  
+  <!--
+  <xacro:arm prefix="$(arg prefix)" />
+  <xacro:arm_gazebo prefix="$(arg prefix)" />
+  -->
+
+  <!--导入ros2控制器配置文件（定义电机驱动、关节控制等硬件接口） -->
+  <xacro:include filename="$(find turtlebot3_manipulation_description)/ros2_control/fhbot_system.ros2_control.xacro" />
+
+  <!--初始化ros2控制系统，传递硬件/仿真等参数 -->
+  <xacro:fhbot_system
+    name="FHBOT_System" prefix="$(arg prefix)" use_sim="$(arg use_sim)"
+    use_fake_hardware="$(arg use_fake_hardware)"
+    fake_sensor_commands="$(arg fake_sensor_commands)"/>
+
+  <!--加载gazebo的ros2控制插件和参数配置文件 -->
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <parameters>$(find turtlebot3_manipulation_bringup)/config/gazebo_controller_manager.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+</robot>

@@ -15,7 +15,7 @@
       <mu2>0.8</mu2>  
       <kp>350000.0</kp>  
       <kd>15.0</kd>  
-      <minDepth>0.001</minDepth>  
+      <minDepth>0.002</minDepth>  
       <maxVel>0.3</maxVel>  
       <fdir1>1 0 0</fdir1>  
       <material>Gazebo/FlatBlack</material>  
@@ -26,28 +26,28 @@
       <mu2>0.8</mu2>  
       <kp>350000.0</kp>  
       <kd>15.0</kd>  
-      <minDepth>0.001</minDepth>  
+      <minDepth>0.002</minDepth>  
       <maxVel>0.3</maxVel>  
       <fdir1>1 0 0</fdir1>  
       <material>Gazebo/FlatBlack</material>  
     </gazebo>  
   
     <gazebo reference="${prefix}caster_front_left_link">  
-      <mu1>0.01</mu1>  
-      <mu2>0.01</mu2>  
+      <mu1>0.001</mu1>  
+      <mu2>0.001</mu2>  
       <kp>1000000.0</kp>  
       <kd>100.0</kd>  
-      <minDepth>0.001</minDepth>  
+      <minDepth>0.002</minDepth>  
       <maxVel>1.0</maxVel>  
       <material>Gazebo/FlatBlack</material>  
     </gazebo>  
   
     <gazebo reference="${prefix}caster_front_right_link">  
-      <mu1>0.01</mu1>  
-      <mu2>0.01</mu2>  
+      <mu1>0.001</mu1>  
+      <mu2>0.001</mu2>  
       <kp>1000000.0</kp>  
       <kd>100.0</kd>  
-      <minDepth>0.001</minDepth>  
+      <minDepth>0.002</minDepth>  
       <maxVel>1.0</maxVel>  
       <material>Gazebo/FlatBlack</material>  
     </gazebo>  
@@ -64,7 +64,7 @@
         <right_joint>wheel_right_joint</right_joint>  
         <wheel_separation>0.3</wheel_separation>  
         <wheel_diameter>0.135</wheel_diameter>  
-        <max_wheel_torque>20</max_wheel_torque>  
+        <max_wheel_torque>10</max_wheel_torque>  
         <max_wheel_acceleration>1.0</max_wheel_acceleration>  
         <publish_odom>true</publish_odom>  
         <publish_odom_tf>true</publish_odom_tf>  

@@ -44,7 +44,7 @@ def generate_launch_description():
             [
                 FindPackageShare('turtlebot3_manipulation_navigation2'),
                 'map',
-                'turtlebot3_house_map.yaml'
+                'tb_house_map.yaml'
             ]
         )
     )
@@ -55,7 +55,7 @@ def generate_launch_description():
             [
                 FindPackageShare('turtlebot3_manipulation_navigation2'),
                 'param',
-                'turtlebot3_use_sim_time.yaml'
+                'fhbot.yaml'
             ]
         )
     )

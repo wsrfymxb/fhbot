@@ -88,7 +88,7 @@ def generate_launch_description():
                 [
                     FindPackageShare('turtlebot3_manipulation_description'),
                     'urdf',
-                    'turtlebot3_manipulation.urdf.xacro'
+                    'fhbot.urdf.xacro'
                 ]
             ),
             ' ',
