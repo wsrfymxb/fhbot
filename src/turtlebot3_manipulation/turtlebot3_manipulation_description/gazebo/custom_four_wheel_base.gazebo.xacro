@@ -2,54 +2,69 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">  
   
   <xacro:macro name="custom_four_wheel_base_gazebo" params="prefix">  
-  <xacro:property name="laser_visual"  value="true"/>
-  <xacro:property name="camera_visual" value="true"/>
-  <xacro:property name="imu_visual"    value="true"/>  
+    <xacro:property name="laser_visual"  value="false"/>
+    <xacro:property name="camera_visual" value="false"/>
+    <xacro:property name="imu_visual"    value="true"/>  
   
-    <gazebo reference="${prefix}base_link">  
-      <material>Gazebo/DarkGrey</material>  
-    </gazebo>  
-  
+    <gazebo reference="${prefix}base_link">
+      <material>Gazebo/Black</material>  
+      <visual>  
+        <transparency>0.5</transparency>  
+      </visual>  
+    </gazebo>
+
+    <gazebo reference="${prefix}center_of_mass_link"> 
+      <material>Gazebo/Red</material>
+    </gazebo>
+
+    <gazebo reference="${prefix}caster_connector_left_link"> 
+      <material>Gazebo/FlatBlack</material>
+    </gazebo>
+
+    <gazebo reference="${prefix}caster_connector_right_link"> 
+      <material>Gazebo/FlatBlack</material>
+    </gazebo>
+
     <gazebo reference="${prefix}wheel_left_link">  
-      <mu1>1.0</mu1>  
+      <mu1>1</mu1>  
       <mu2>0.8</mu2>  
-      <kp>350000.0</kp>  
-      <kd>15.0</kd>  
-      <minDepth>0.002</minDepth>  
-      <maxVel>0.1</maxVel>  
+      <kp>200000.0</kp>  
+      <kd>1000.0</kd>  
+      <minDepth>0.001</minDepth>  
+      <maxVel>0.2</maxVel>  
       <fdir1>1 0 0</fdir1>  
       <material>Gazebo/FlatBlack</material>  
     </gazebo>  
   
     <gazebo reference="${prefix}wheel_right_link">  
-      <mu1>1.0</mu1>  
+      <mu1>1</mu1>  
       <mu2>0.8</mu2>  
-      <kp>350000.0</kp>  
-      <kd>15.0</kd>  
-      <minDepth>0.002</minDepth>  
-      <maxVel>0.1</maxVel>  
+      <kp>200000.0</kp>  
+      <kd>1000.0</kd>  
+      <minDepth>0.001</minDepth>  
+      <maxVel>0.2</maxVel>  
       <fdir1>1 0 0</fdir1>  
       <material>Gazebo/FlatBlack</material>  
     </gazebo>  
   
     <gazebo reference="${prefix}caster_front_left_link">  
-      <mu1>0.001</mu1>  
-      <mu2>0.001</mu2>  
+      <mu1>0.1</mu1>  
+      <mu2>0.05</mu2>  
       <kp>1000000.0</kp>  
       <kd>100.0</kd>  
-      <minDepth>0.002</minDepth>  
-      <maxVel>0.1</maxVel>  
+      <minDepth>0.001</minDepth>  
+      <maxVel>0.5</maxVel>  
       <material>Gazebo/FlatBlack</material>  
     </gazebo>  
   
     <gazebo reference="${prefix}caster_front_right_link">  
-      <mu1>0.001</mu1>  
-      <mu2>0.001</mu2>  
+      <mu1>0.1</mu1>  
+      <mu2>0.05</mu2>  
       <kp>1000000.0</kp>  
       <kd>100.0</kd>  
-      <minDepth>0.002</minDepth>  
-      <maxVel>0.1</maxVel>  
-      <material>Gazebo/FlatBlack</material>  
+      <minDepth>0.001</minDepth>  
+      <maxVel>0.5</maxVel> 
+      <material>Gazebo/FlatBlack</material>   
     </gazebo>  
   
     <gazebo>  
@@ -62,7 +77,7 @@
   
         <left_joint>wheel_left_joint</left_joint>  
         <right_joint>wheel_right_joint</right_joint>  
-        <wheel_separation>0.37</wheel_separation>  
+        <wheel_separation>0.38</wheel_separation>  
         <wheel_diameter>0.135</wheel_diameter>  
         <max_wheel_torque>10</max_wheel_torque>  
         <max_wheel_acceleration>1.0</max_wheel_acceleration>  

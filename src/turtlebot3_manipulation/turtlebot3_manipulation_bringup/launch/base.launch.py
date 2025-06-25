@@ -173,19 +173,19 @@ def generate_launch_description():
         output='screen',
     )
 
-    arm_controller_spawner = Node(
-        package='controller_manager',
-        executable='spawner',
-        arguments=['arm_controller'],
-        output='screen',
-    )
+    # arm_controller_spawner = Node(
+    #     package='controller_manager',
+    #     executable='spawner',
+    #     arguments=['arm_controller'],
+    #     output='screen',
+    # )
 
-    gripper_controller_spawner = Node(
-        package='controller_manager',
-        executable='spawner',
-        arguments=['gripper_controller'],
-        output='screen',
-    )
+    # gripper_controller_spawner = Node(
+    #     package='controller_manager',
+    #     executable='spawner',
+    #     arguments=['gripper_controller'],
+    #     output='screen',
+    # )
 
     delay_rviz_after_joint_state_broadcaster_spawner = RegisterEventHandler(
         event_handler=OnProcessExit(
@@ -210,21 +210,21 @@ def generate_launch_description():
             )
         )
 
-    delay_arm_controller_spawner_after_joint_state_broadcaster_spawner = \
-        RegisterEventHandler(
-            event_handler=OnProcessExit(
-                target_action=joint_state_broadcaster_spawner,
-                on_exit=[arm_controller_spawner],
-            )
-        )
+    # delay_arm_controller_spawner_after_joint_state_broadcaster_spawner = \
+    #     RegisterEventHandler(
+    #         event_handler=OnProcessExit(
+    #             target_action=joint_state_broadcaster_spawner,
+    #             on_exit=[arm_controller_spawner],
+    #         )
+    #     )
 
-    delay_gripper_controller_spawner_after_joint_state_broadcaster_spawner = \
-        RegisterEventHandler(
-            event_handler=OnProcessExit(
-                target_action=joint_state_broadcaster_spawner,
-                on_exit=[gripper_controller_spawner],
-            )
-        )
+    # delay_gripper_controller_spawner_after_joint_state_broadcaster_spawner = \
+    #     RegisterEventHandler(
+    #         event_handler=OnProcessExit(
+    #             target_action=joint_state_broadcaster_spawner,
+    #             on_exit=[gripper_controller_spawner],
+    #         )
+    #     )
 
     nodes = [
         control_node,
@@ -233,8 +233,8 @@ def generate_launch_description():
         delay_rviz_after_joint_state_broadcaster_spawner,
         delay_diff_drive_controller_spawner_after_joint_state_broadcaster_spawner,
         delay_imu_broadcaster_spawner_after_joint_state_broadcaster_spawner,
-        delay_arm_controller_spawner_after_joint_state_broadcaster_spawner,
-        delay_gripper_controller_spawner_after_joint_state_broadcaster_spawner,
+        # delay_arm_controller_spawner_after_joint_state_broadcaster_spawner,
+        # delay_gripper_controller_spawner_after_joint_state_broadcaster_spawner,
     ]
 
     return LaunchDescription(declared_arguments + nodes)
