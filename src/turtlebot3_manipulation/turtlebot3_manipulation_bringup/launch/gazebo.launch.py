@@ -59,7 +59,7 @@ def generate_launch_description():
         )
     )
 
-    pose = {'x': LaunchConfiguration('x_pose', default='-2.00'),
+    pose = {'x': LaunchConfiguration('x_pose', default='-4.00'),
             'y': LaunchConfiguration('y_pose', default='-2.00'),
             'z': LaunchConfiguration('z_pose', default='0.00'),
             'R': LaunchConfiguration('roll', default='0.00'),
