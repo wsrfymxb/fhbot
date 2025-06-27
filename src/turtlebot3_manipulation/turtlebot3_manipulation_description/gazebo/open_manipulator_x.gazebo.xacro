@@ -4,15 +4,18 @@ Copied and modified from turtlebot3 example:
 https://github.com/ROBOTIS-GIT/turtlebot3/blob/kinetic-devel/turtlebot3_description/urdf/turtlebot3_waffle_pi_for_open_manipulator.gazebo.xacro
 -->
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-
+  <!-- 定义名为open_manipulator_x_gazebo的机器人gazebo配置宏-->
   <xacro:macro name="open_manipulator_x_gazebo" params="prefix">
-
+  <!-- 定义名为SimpleTransmission的传动系统宏-->
   <xacro:macro name="SimpleTransmission" params="trans joint actuator">
-    <transmission name="${trans}">
+    <!-- 传动系统配置-->
+    <transmission name="${trans}"> 
       <type>transmission_interface/SimpleTransmission</type>
+      <!-- 关节系统配置-->
       <joint name="${joint}">
         <hardwareInterface>PositionJointInterface</hardwareInterface>
       </joint>
+      <!-- 执行器配置-->
       <actuator name="${actuator}">
         <mechanicalReduction>1</mechanicalReduction>
         <hardwareInterface>PositionJointInterface</hardwareInterface>
@@ -20,7 +23,9 @@ https://github.com/ROBOTIS-GIT/turtlebot3/blob/kinetic-devel/turtlebot3_descript
     </transmission>
   </xacro:macro>
 
+  <!-- 定义名为Link的连杆宏，reference参数指定连杆名称-->
   <xacro:macro name="Link" params="reference">
+    <!-- 连杆宏参数配置-->
     <gazebo reference="${reference}">
       <kp>1000000.0</kp>
       <kd>100.0</kd>
@@ -32,19 +37,21 @@ https://github.com/ROBOTIS-GIT/turtlebot3/blob/kinetic-devel/turtlebot3_descript
     </gazebo>
   </xacro:macro>
 
+  <!-- 连杆宏应用到机械臂各个连杆和夹爪-->
   <xacro:Link reference="${prefix}link1"/>
   <xacro:Link reference="${prefix}link2"/>
   <xacro:Link reference="${prefix}link3"/>
   <xacro:Link reference="${prefix}link4"/>
   <xacro:Link reference="${prefix}link5"/>
-
   <xacro:Link reference="${prefix}gripper_left_link"/>
   <xacro:Link reference="${prefix}gripper_right_link"/>
 
+  <!-- 单独设置末端执行器的颜色-->
   <gazebo reference="${prefix}end_effector_link">
     <material>Gazebo/Red</material>
   </gazebo>
 
+  <!-- 配置传动系统-->
   <xacro:SimpleTransmission trans="${prefix}trans1" joint="${prefix}joint1" actuator="${prefix}actuator1" />
   <xacro:SimpleTransmission trans="${prefix}trans2" joint="${prefix}joint2" actuator="${prefix}actuator2" />
   <xacro:SimpleTransmission trans="${prefix}trans3" joint="${prefix}joint3" actuator="${prefix}actuator3" />

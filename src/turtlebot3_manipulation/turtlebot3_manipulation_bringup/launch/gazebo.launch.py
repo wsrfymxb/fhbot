@@ -54,13 +54,13 @@ def generate_launch_description():
             [
                 FindPackageShare('turtlebot3_manipulation_bringup'),
                 'worlds',
-                'turtlebot3_house.model',
+                'house_withcan.model',
             ]
         )
     )
 
-    pose = {'x': LaunchConfiguration('x_pose', default='-4.00'),
-            'y': LaunchConfiguration('y_pose', default='-2.00'),
+    pose = {'x': LaunchConfiguration('x_pose', default='-5.00'),
+            'y': LaunchConfiguration('y_pose', default='0.50'),
             'z': LaunchConfiguration('z_pose', default='0.00'),
             'R': LaunchConfiguration('roll', default='0.00'),
             'P': LaunchConfiguration('pitch', default='0.00'),
