@@ -124,6 +124,19 @@ def generate_launch_description():
             default_value='false',
             description='Whether to respawn if a node crashes. \
                 Applied when composition is disabled.'),
+
+        # IncludeLaunchDescription(  
+        #     PythonLaunchDescriptionSource([  
+        #         PathJoinSubstitution([  
+        #             FindPackageShare('turtlebot3_manipulation_cartographer'),  
+        #             'launch',  
+        #             'cartographer.launch.py'  
+        #         ])  
+        #     ]),  
+        #     launch_arguments={  
+        #         'use_sim_time': use_sim,  
+        #     }.items(),  
+        # ),
         
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([nav2_launch_file_dir, '/bringup_launch.py']),
