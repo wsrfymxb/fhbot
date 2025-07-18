@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">  
   
   <xacro:macro name="custom_four_wheel_base_gazebo" params="prefix">  
-    <xacro:property name="laser_visual"      value="false"/>
+    <xacro:property name="laser_visual"      value="true"/>
     <xacro:property name="imu_visual"        value="true"/> 
     <xacro:property name="line_laser_visual" value="true"/> 
     <xacro:property name="tof_camera_visual" value="true"/> 
@@ -214,7 +214,7 @@
         <plugin name="gazebo_ros_lds_lfcd_controller" filename="libgazebo_ros_ray_sensor.so">
           <ros>
             <namespace></namespace>
-            <remapping>~/out:=base_scan</remapping>
+            <remapping>~/out:=scan</remapping>
           </ros>
           <output_type>sensor_msgs/LaserScan</output_type>
         </plugin>

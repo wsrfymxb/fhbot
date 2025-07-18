@@ -4,8 +4,8 @@
   <xacro:macro name="custom_four_wheel_base" params="prefix">    
 
     <xacro:property name="chassis_zero_height" value="0.09" />
-    <xacro:property name="chassis_length" value="0.3" />
-    <xacro:property name="chassis_width" value="0.25" />
+    <xacro:property name="chassis_length" value="0.35" />
+    <xacro:property name="chassis_width" value="0.41" />
     <xacro:property name="chassis_height" value="0.2" />
 
     <xacro:property name="driver_radius" value="0.0675" />
