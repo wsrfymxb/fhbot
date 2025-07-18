@@ -50,7 +50,7 @@
     use_fake_hardware="$(arg use_fake_hardware)"
     fake_sensor_commands="$(arg fake_sensor_commands)"/>
 
-  <!--加载gazebo的ros2控制插件和参数配置文件 -->
+  <!--加载gazebo的ros2控制器管理器配置文件 -->
   <gazebo>
     <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
       <parameters>$(find turtlebot3_manipulation_bringup)/config/gazebo_fhbot_ctrlmanager.yaml</parameters>

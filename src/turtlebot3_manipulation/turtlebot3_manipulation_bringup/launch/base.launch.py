@@ -106,11 +106,19 @@ def generate_launch_description():
         ]
     )
 
+    # controller_manager_config = PathJoinSubstitution(
+    #     [
+    #         FindPackageShare('turtlebot3_manipulation_bringup'),
+    #         'config',
+    #         'hardware_controller_manager.yaml',
+    #     ]
+    # )
+
     controller_manager_config = PathJoinSubstitution(
         [
             FindPackageShare('turtlebot3_manipulation_bringup'),
             'config',
-            'hardware_controller_manager.yaml',
+            'gazebo_fhbot_ctrlmanager.yaml',
         ]
     )
 

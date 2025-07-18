@@ -47,6 +47,7 @@ https://github.com/ros-controls/ros2_control_demos/blob/foxy/ros2_control_demo_d
           <param name="initial_value">0.0</param>
         </state_interface>
       </joint>
+
       <joint name="${prefix}wheel_right_joint">
         <command_interface name="velocity">
           <param name="min">-24.5</param>
@@ -93,7 +94,7 @@ https://github.com/ros-controls/ros2_control_demos/blob/foxy/ros2_control_demo_d
         </state_interface>
       </sensor>
 
-      <sensor name="battery">
+      <!-- <sensor name="battery">
         <state_interface name="voltage">
           <param name="initial_value">0.0</param>
         </state_interface>
@@ -107,6 +108,54 @@ https://github.com/ros-controls/ros2_control_demos/blob/foxy/ros2_control_demo_d
           <param name="initial_value">0.0</param>
         </state_interface>
       </sensor>
+
+      <sensor name="base_scan">  
+        <state_interface name="range_min">  
+          <param name="initial_value">0.120</param>  
+        </state_interface>  
+        <state_interface name="range_max">  
+          <param name="initial_value">3.5</param>  
+        </state_interface>  
+        <state_interface name="angle_min">  
+          <param name="initial_value">0.0</param>  
+        </state_interface>  
+        <state_interface name="angle_max">  
+          <param name="initial_value">6.28319</param>  
+        </state_interface>  
+      </sensor>  
+
+      <sensor name="line_laser">  
+        <state_interface name="range_min">  
+          <param name="initial_value">0.05</param>  
+        </state_interface>  
+        <state_interface name="range_max">  
+          <param name="initial_value">2.0</param>  
+        </state_interface>  
+        <state_interface name="angle_min">  
+          <param name="initial_value">-0.8</param>  
+        </state_interface>  
+        <state_interface name="angle_max">  
+          <param name="initial_value">0.5</param>  
+        </state_interface>  
+      </sensor>  
+        
+      <sensor name="tof_camera">  
+        <state_interface name="image_width">  
+          <param name="initial_value">640</param>  
+        </state_interface>  
+        <state_interface name="image_height">  
+          <param name="initial_value">480</param>  
+        </state_interface>  
+        <state_interface name="horizontal_fov">  
+          <param name="initial_value">1.0</param>  
+        </state_interface>  
+        <state_interface name="near_clip">  
+          <param name="initial_value">0.05</param>  
+        </state_interface>  
+        <state_interface name="far_clip">  
+          <param name="initial_value">2.0</param>  
+        </state_interface>  
+      </sensor> -->
 
       <!--
       <joint name="${prefix}joint1">

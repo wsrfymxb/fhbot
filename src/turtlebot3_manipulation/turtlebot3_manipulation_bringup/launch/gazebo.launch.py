@@ -29,7 +29,6 @@ from launch.substitutions import ThisLaunchFileDir
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
-
 def is_valid_to_launch():
     # Path includes model name of Raspberry Pi series
     path = '/sys/firmware/devicetree/base/model'
@@ -50,16 +49,17 @@ def generate_launch_description():
 
     world = LaunchConfiguration(
         'world',
-        default=PathJoinSubstitution(
-            [
-                FindPackageShare('turtlebot3_manipulation_bringup'),
-                'worlds',
-                'house_withcan.model',
-            ]
-        )
+        default = '/root/workspace/self_gazebo_models/test_world'
+        # default=PathJoinSubstitution(
+        #     [
+        #         FindPackageShare('turtlebot3_manipulation_bringup'),
+        #         'worlds',
+        #         'house_withcan.model',
+        #     ]
+        # )
     )
 
-    pose = {'x': LaunchConfiguration('x_pose', default='-5.00'),
+    pose = {'x': LaunchConfiguration('x_pose', default='-4.00'),
             'y': LaunchConfiguration('y_pose', default='0.50'),
             'z': LaunchConfiguration('z_pose', default='0.00'),
             'R': LaunchConfiguration('roll', default='0.00'),

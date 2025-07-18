@@ -2,15 +2,16 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">    
     
   <xacro:macro name="custom_four_wheel_base" params="prefix">    
-    <!-- 标量变量 -->
+
     <xacro:property name="chassis_zero_height" value="0.09" />
-    <xacro:property name="chassis_length" value="0.41" />
-    <xacro:property name="chassis_width" value="0.4" />
+    <xacro:property name="chassis_length" value="0.3" />
+    <xacro:property name="chassis_width" value="0.25" />
     <xacro:property name="chassis_height" value="0.2" />
 
-    <xacro:property name="driver_x_offset" value="-0.15" />
-    <xacro:property name="driver_y_offset" value="0.19" />
     <xacro:property name="driver_radius" value="0.0675" />
+    <xacro:property name="driver_thickness" value="0.03" />
+    <xacro:property name="driver_x_offset" value="-0.15" />
+    <xacro:property name="driver_y_offset" value="${(chassis_width-driver_thickness)/2}" />
     <xacro:property name="caster_x_offset" value="0.15" />
     <xacro:property name="caster_y_offset" value="0.08" />
     <xacro:property name="caster_radius" value="0.025" />
@@ -19,20 +20,35 @@
     <xacro:property name="chassis_heart_y_offset" value="0" />
     <xacro:property name="chassis_heart_z_offset" value="-0.05" />
 
+    <xacro:arg name="tof_x" default="${chassis_length/2}" />    <!-- ToF相机X位置 -->
+    <xacro:arg name="tof_y" default="0" />      <!-- ToF相机Y位置 -->
+    <xacro:arg name="tof_z" default="0.2" />   <!-- ToF相机传感器Z位置 -->
+    
+    <xacro:arg name="line_x" default="0" />  <!-- 线激光X位置 -->
+    <xacro:arg name="line_y" default="${chassis_width/2}" />    <!-- 线激光Y位置 -->
+    <xacro:arg name="line_z" default="0.1" /> <!-- 线激光Z位置 -->
+    <xacro:arg name="line_mid_x" default="${chassis_length/2}" />  <!-- 线激光X位置 -->
+    <xacro:arg name="line_mid_rot_y" default="0.2" />
+    <xacro:arg name="line_mid_z" default="0.15" /> <!-- 线激光Z位置 -->
+
     <xacro:property name="caster_z_offset" value="${driver_radius - caster_radius}" />
+
+    <!-- 编码器尺寸 -->
+    <xacro:property name="encoder_radius" value="0.02" />
+    <xacro:property name="encoder_length" value="0.01" />
 
     <xacro:property
     name="meshes_file_direction"
     value="package://turtlebot3_manipulation_description/meshes/turtlebot3_waffle_pi"/>
-          
+
     <!-- Base footprint -->    
     <link name="${prefix}base_footprint"/>    
-        
+
     <!-- Base link -->    
     <joint name="${prefix}base_joint" type="fixed">    
       <parent link="${prefix}base_footprint"/>    
       <child link="${prefix}base_link"/>    
-      <origin xyz="0.0 0.0 ${driver_radius}" rpy="0 0 0"/>    
+      <origin xyz="0 0 ${driver_radius}" rpy="0 0 0"/>    
     </joint>   
 
     <link name="${prefix}base_link">    
@@ -91,7 +107,7 @@
       <visual>    
         <origin xyz="0 0 0" rpy="0 0 0"/>    
         <geometry>    
-          <cylinder radius="${driver_radius}" length="0.03"/>    
+          <cylinder radius="${driver_radius}" length="${driver_thickness}"/>    
         </geometry>    
         <material name="black"/>     
       </visual>    
@@ -99,7 +115,7 @@
       <collision>    
         <origin xyz="0 0 0" rpy="0 0 0"/>    
         <geometry>    
-          <cylinder radius="${driver_radius}" length="0.03"/>    
+          <cylinder radius="${driver_radius}" length="${driver_thickness}"/>    
         </geometry>    
       </collision>    
           
@@ -111,7 +127,30 @@
                   izz="0.00228"/>    
       </inertial>    
     </link>    
+
+    <!-- 左侧编码器 -->
+    <joint name="${prefix}wheel_left_encoder_joint" type="fixed">
+      <parent link="${prefix}wheel_left_link"/>
+      <child link="${prefix}wheel_left_encoder_link"/>
+      <origin xyz="0 0 -0.015" rpy="0 0 0"/> <!-- 位于轮子中心 -->
+    </joint>
     
+    <link name="${prefix}wheel_left_encoder_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${encoder_radius}" length="${encoder_length}"/>
+        </geometry>
+        <material name="yellow">
+          <color rgba="1 1 0 1"/> <!-- 黄色编码器 -->
+        </material>
+      </visual>
+      <inertial>
+        <mass value="0.01"/>
+        <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001"/>
+      </inertial>
+    </link>    
+
     <!-- Right drive wheel -->    
     <joint name="${prefix}wheel_right_joint" type="continuous">    
       <parent link="${prefix}base_link"/>    
@@ -124,7 +163,7 @@
       <visual>    
         <origin xyz="0 0 0" rpy="0 0 0"/>    
         <geometry>    
-          <cylinder radius="${driver_radius}" length="0.03"/>    
+          <cylinder radius="${driver_radius}" length="${driver_thickness}"/>    
         </geometry>    
         <material name="black"/>     
       </visual>    
@@ -132,7 +171,7 @@
       <collision>    
         <origin xyz="0 0 0" rpy="0 0 0"/>    
         <geometry>    
-          <cylinder radius="${driver_radius}" length="0.03"/>    
+          <cylinder radius="${driver_radius}" length="${driver_thickness}"/>    
         </geometry>    
       </collision>    
           
@@ -145,57 +184,34 @@
       </inertial>    
     </link>    
 
+    <!-- 右侧编码器 (对称位置) -->
+    <joint name="${prefix}wheel_right_encoder_joint" type="fixed">
+      <parent link="${prefix}wheel_right_link"/>
+      <child link="${prefix}wheel_right_encoder_link"/>
+      <origin xyz="0 0 0.015" rpy="0 0 0"/> <!-- 与左侧对称 -->
+    </joint>
+    
+    <link name="${prefix}wheel_right_encoder_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <cylinder radius="${encoder_radius}" length="${encoder_length}"/>
+        </geometry>
+        <material name="yellow">
+          <color rgba="1 1 0 1"/> <!-- 黄色编码器 -->
+        </material>
+      </visual>
+      <inertial>
+        <mass value="0.01"/>
+        <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001"/>
+      </inertial>
+    </link>
+
     <joint name="${prefix}caster_front_left_joint" type="fixed">    
       <parent link="${prefix}base_link"/>    
       <child link="${prefix}caster_front_left_link"/>    
       <origin xyz="${caster_x_offset} ${caster_y_offset} 0" rpy="0 0 0"/>
     </joint>    
-
-    <joint name="${prefix}caster_front_right_joint" type="fixed">    
-      <parent link="${prefix}base_link"/>    
-      <child link="${prefix}caster_front_right_link"/>    
-      <origin xyz="${caster_x_offset} ${-caster_y_offset} 0" rpy="0 0 0"/>  
-    </joint>
-
-    <joint name="${prefix}caster_connector_left_joint" type="fixed">    
-      <parent link="${prefix}base_link"/>    
-      <child link="${prefix}caster_connector_left_link"/>    
-      <origin xyz="${caster_x_offset} ${caster_y_offset} 0" rpy="0 0 0"/>
-    </joint>    
-
-    <joint name="${prefix}caster_connector_right_joint" type="fixed">    
-      <parent link="${prefix}base_link"/>    
-      <child link="${prefix}caster_connector_right_link"/>    
-      <origin xyz="${caster_x_offset} ${-caster_y_offset} 0" rpy="0 0 0"/>  
-    </joint>
-
-    <link name="${prefix}caster_connector_left_link">
-      <!-- 添加固定连杆 -->
-      <visual>    
-        <origin xyz="0 0 ${chassis_zero_height/2-caster_z_offset}" rpy="0 0 0"/>    
-        <geometry>    
-          <cylinder radius="0.005" length="${chassis_zero_height-2*caster_radius}"/>    
-        </geometry>    
-        <material name="black">    
-          <color rgba="0.0 0.0 0.0 1.0"/>    
-        </material>      
-      </visual>
-          
-      <collision>    
-        <origin xyz="0 0 ${chassis_zero_height/2-caster_z_offset}" rpy="0 0 0"/>    
-        <geometry>    
-          <cylinder radius="0.005" length="${chassis_zero_height-2*caster_radius}"/>   
-        </geometry>    
-      </collision>    
-          
-      <inertial>    
-        <origin xyz="0 0 ${chassis_zero_height/2-caster_z_offset}" rpy="0 0 0"/>    
-        <mass value="0.1"/>    
-        <inertia ixx="0.00001" ixy="0.0" ixz="0.0"    
-                  iyy="0.00001" iyz="0.0"    
-                  izz="0.00001"/>    
-      </inertial>    
-    </link>
 
     <link name="${prefix}caster_front_left_link">
       <!-- 添加固定连杆 -->     
@@ -225,7 +241,13 @@
       </inertial>    
     </link>
 
-    <link name="${prefix}caster_connector_right_link">
+    <joint name="${prefix}caster_connector_left_joint" type="fixed">    
+      <parent link="${prefix}base_link"/>    
+      <child link="${prefix}caster_connector_left_link"/>    
+      <origin xyz="${caster_x_offset} ${caster_y_offset} 0" rpy="0 0 0"/>
+    </joint>    
+
+    <link name="${prefix}caster_connector_left_link">
       <!-- 添加固定连杆 -->
       <visual>    
         <origin xyz="0 0 ${chassis_zero_height/2-caster_z_offset}" rpy="0 0 0"/>    
@@ -253,6 +275,12 @@
       </inertial>    
     </link>
 
+    <joint name="${prefix}caster_front_right_joint" type="fixed">    
+      <parent link="${prefix}base_link"/>    
+      <child link="${prefix}caster_front_right_link"/>    
+      <origin xyz="${caster_x_offset} ${-caster_y_offset} 0" rpy="0 0 0"/>  
+    </joint>
+
     <link name="${prefix}caster_front_right_link">
       <!-- 添加固定连杆 -->     
       <visual>    
@@ -274,6 +302,40 @@
           
       <inertial>    
         <origin xyz="0 0 ${-caster_z_offset}" rpy="0 0 0"/>    
+        <mass value="0.1"/>    
+        <inertia ixx="0.00001" ixy="0.0" ixz="0.0"    
+                  iyy="0.00001" iyz="0.0"    
+                  izz="0.00001"/>    
+      </inertial>    
+    </link>
+    
+    <joint name="${prefix}caster_connector_right_joint" type="fixed">    
+      <parent link="${prefix}base_link"/>    
+      <child link="${prefix}caster_connector_right_link"/>    
+      <origin xyz="${caster_x_offset} ${-caster_y_offset} 0" rpy="0 0 0"/>  
+    </joint>
+
+    <link name="${prefix}caster_connector_right_link">
+      <!-- 添加固定连杆 -->
+      <visual>    
+        <origin xyz="0 0 ${chassis_zero_height/2-caster_z_offset}" rpy="0 0 0"/>    
+        <geometry>    
+          <cylinder radius="0.005" length="${chassis_zero_height-2*caster_radius}"/>    
+        </geometry>    
+        <material name="black">    
+          <color rgba="0.0 0.0 0.0 1.0"/>    
+        </material>      
+      </visual>
+          
+      <collision>    
+        <origin xyz="0 0 ${chassis_zero_height/2-caster_z_offset}" rpy="0 0 0"/>    
+        <geometry>    
+          <cylinder radius="0.005" length="${chassis_zero_height-2*caster_radius}"/>   
+        </geometry>    
+      </collision>    
+          
+      <inertial>    
+        <origin xyz="0 0 ${chassis_zero_height/2-caster_z_offset}" rpy="0 0 0"/>    
         <mass value="0.1"/>    
         <inertia ixx="0.00001" ixy="0.0" ixz="0.0"    
                   iyy="0.00001" iyz="0.0"    
@@ -330,44 +392,103 @@
       </inertial>
     </link>
 
-    <joint name="${prefix}camera_joint" type="fixed">
+    <!-- 左线激光传感器 - 增强可视化 -->
+    <joint name="${prefix}line_laser_left_joint" type="fixed">
       <parent link="${prefix}base_link"/>
-      <child link="${prefix}camera_link"/>
-      <origin xyz="${chassis_length/2+0.01} 0 ${chassis_zero_height-driver_radius+chassis_height-0.01}" rpy="0 0 0"/>
+      <child link="${prefix}line_laser_left"/>
+      <origin xyz="$(arg line_x) $(arg line_y) $(arg line_z)" rpy="1.57 0 1.57"/>
     </joint>
 
-    <link name="${prefix}camera_link">
+    <link name="${prefix}line_laser_left">
       <visual>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/> <!--  -->
         <geometry>
-          <box size="0.02 0.03 0.02"/>
+          <cylinder radius="0.02" length="0.02"/> <!-- 使用细长圆柱体 -->
         </geometry>
-        <material name="dark"/>
+        <material name="red_transparent">
+          <color rgba="1 0 0 0.9"/> <!-- 更鲜艳的红色 -->
+        </material>
       </visual>
-      <collision>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
-        <geometry>
-          <box size="0.02 0.03 0.02"/>
-        </geometry>
-      </collision>
+      <inertial>
+        <mass value="0.02"/>
+        <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/>
+      </inertial>
     </link>
 
-    <joint name="${prefix}camera_rgb_joint" type="fixed">
-      <parent link="${prefix}camera_link"/>
-      <child link="${prefix}camera_rgb_frame"/>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
+    <!-- 中线激光传感器 - 增强可视化 -->
+    <joint name="${prefix}line_laser_mid_joint" type="fixed">
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}line_laser_mid"/>
+      <origin xyz="$(arg line_mid_x) 0 $(arg line_mid_z)" rpy="0 $(arg line_mid_rot_y) 0"/>
     </joint>
 
-    <link name="${prefix}camera_rgb_frame"/>
+    <link name="${prefix}line_laser_mid">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/> <!--  -->
+        <geometry>
+          <cylinder radius="0.02" length="0.02"/> <!-- 使用细长圆柱体 -->
+        </geometry>
+        <material name="red_transparent">
+          <color rgba="1 0 0 0.9"/> <!-- 更鲜艳的红色 -->
+        </material>
+      </visual>
+      <inertial>
+        <mass value="0.02"/>
+        <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/>
+      </inertial>
+    </link>
 
-    <joint name="${prefix}camera_rgb_optical_joint" type="fixed">
-      <parent link="${prefix}camera_rgb_frame"/>
-      <child link="${prefix}camera_rgb_optical_frame"/>
+    <!-- 右线激光传感器 - 增强可视化 -->
+    <joint name="${prefix}line_laser_right_joint" type="fixed">
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}line_laser_right"/>
+      <origin xyz="$(arg line_x) -$(arg line_y) $(arg line_z)" rpy="1.57 0 -1.57"/>
+    </joint>
+
+    <link name="${prefix}line_laser_right">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/> <!--  -->
+        <geometry>
+          <cylinder radius="0.02" length="0.02"/> <!-- 使用细长圆柱体 -->
+        </geometry>
+        <material name="red_transparent">
+          <color rgba="1 0 0 0.9"/> <!-- 更鲜艳的红色 -->
+        </material>
+      </visual>
+      <inertial>
+        <mass value="0.02"/>
+        <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/>
+      </inertial>
+    </link>
+
+    <!-- 3D ToF深度相机 -->
+    <joint name="${prefix}tof_camera_joint" type="fixed">
+      <parent link="${prefix}base_link"/>
+      <child link="${prefix}tof_camera"/>
+      <origin xyz="$(arg tof_x) $(arg tof_y) $(arg tof_z)" rpy="0 0 0"/>
+    </joint>
+
+    <link name="${prefix}tof_camera">
+      <visual>
+        <geometry>
+          <box size="0.03 0.03 0.02"/>
+        </geometry>
+        <material name="camera">
+          <color rgba="0.3 0.3 0.3 1.0"/>
+        </material>
+      </visual>
+      <inertial>
+        <mass value="0.05"/>
+        <inertia ixx="0.00001" ixy="0" ixz="0" iyy="0.00001" iyz="0" izz="0.00001"/>
+      </inertial>
+    </link>    
+
+    <link name = "${prefix}camera_optical_link"> </link>
+    <joint name="${prefix}camera_optical_joint" type="fixed">
+      <parent link="${prefix}tof_camera"/>
+      <child link="${prefix}camera_optical_link"/>
       <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/>
     </joint>
 
-    <link name="${prefix}camera_rgb_optical_frame"/>
-    
-  </xacro:macro>    
-    
+  </xacro:macro>        
 </robot>
