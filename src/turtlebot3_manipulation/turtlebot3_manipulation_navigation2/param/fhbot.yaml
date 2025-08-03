@@ -1,11 +1,11 @@
 amcl:
   ros__parameters:
     use_sim_time: True
-    alpha1: 0.2
-    alpha2: 0.2
-    alpha3: 0.2
-    alpha4: 0.2
-    alpha5: 0.2
+    alpha1: 0.1
+    alpha2: 0.1
+    alpha3: 0.1 #0.2
+    alpha4: 0.1 #0.2
+    alpha5: 0.1
     base_frame_id: "base_footprint"
     beam_skip_distance: 0.5
     beam_skip_error_threshold: 0.9
@@ -18,32 +18,38 @@ amcl:
     laser_min_range: -1.0
     laser_model_type: "likelihood_field"
     max_beams: 60
-    max_particles: 2000
-    min_particles: 500
+    max_particles: 3000 #2000
+    min_particles: 500 #500
     odom_frame_id: "odom"
     pf_err: 0.05
     pf_z: 0.99
-    recovery_alpha_fast: 0.0
-    recovery_alpha_slow: 0.0
-    resample_interval: 1
+    recovery_alpha_fast: 0.001
+    recovery_alpha_slow: 0.1
+    resample_interval: 1 #1
     robot_model_type: "nav2_amcl::DifferentialMotionModel"
     save_pose_rate: 0.5
     sigma_hit: 0.2
     tf_broadcast: true
-    transform_tolerance: 1.0
+    transform_tolerance: 0.5 #1.0
     update_min_a: 0.2
-    update_min_d: 0.25
+    update_min_d: 0.1
     z_hit: 0.5
     z_max: 0.05
     z_rand: 0.5
     z_short: 0.05
     scan_topic: scan
+    # 添加IMU融合配置  
+    use_imu: true  
+    imu_topic: /imu  
+    imu_frame_id: imu_link  
+    alpha_imu: 0.1   
+    update_min_a: 0.1 
 
 bt_navigator:
   ros__parameters:
     use_sim_time: True
     global_frame: map
-    robot_base_frame: base_link
+    robot_base_frame: base_footprint
     odom_topic: /odom
     bt_loop_duration: 10
     default_server_timeout: 20
@@ -141,7 +147,7 @@ controller_server:
       min_vel_y: 0.0
       max_vel_x: 0.5
       max_vel_y: 0.0
-      max_vel_theta: 1.0
+      max_vel_theta: 0.5 #1.0
       min_speed_xy: 0.0
       max_speed_xy: 0.5
       min_speed_theta: 0.0
@@ -149,16 +155,16 @@ controller_server:
       # https://github.com/ROBOTIS-GIT/turtlebot3_simulations/issues/75
       acc_lim_x: 2.5
       acc_lim_y: 0.0
-      acc_lim_theta: 3.2
+      acc_lim_theta: 1.2
       decel_lim_x: -2.5
       decel_lim_y: 0.0
-      decel_lim_theta: -3.2
+      decel_lim_theta: -1.2
       vx_samples: 20
       vy_samples: 5
       vtheta_samples: 20
       sim_time: 1.7
-      linear_granularity: 0.05
-      angular_granularity: 0.025
+      linear_granularity: 0.02
+      angular_granularity: 0.01
       transform_tolerance: 0.2
       xy_goal_tolerance: 0.25
       trans_stopped_velocity: 0.25
@@ -182,12 +188,12 @@ local_costmap:
       update_frequency: 5.0
       publish_frequency: 2.0
       global_frame: odom
-      robot_base_frame: base_link
+      robot_base_frame: base_footprint
       use_sim_time: True
       rolling_window: true
       width: 3
       height: 3
-      resolution: 0.05
+      resolution: 0.01
       robot_radius: 0.22
       plugins: ["voxel_layer", "inflation_layer"]
       inflation_layer:
@@ -198,22 +204,62 @@ local_costmap:
         plugin: "nav2_costmap_2d::VoxelLayer"
         enabled: True
         publish_voxel_map: True
-        origin_z: 0.0
-        z_resolution: 0.05
+        origin_z: 0.01
+        z_resolution: 0.01
         z_voxels: 16
         max_obstacle_height: 2.0
-        mark_threshold: 0
-        observation_sources: scan
+        mark_threshold: 1
+        observation_sources: scan line_mid
         scan:
           topic: /scan
-          max_obstacle_height: 2.0
+          max_obstacle_height: 0.6
           clearing: True
           marking: True
           data_type: "LaserScan"
-          raytrace_max_range: 3.0
+          raytrace_max_range: 2.0
           raytrace_min_range: 0.0
-          obstacle_max_range: 2.5
+          obstacle_max_range: 1.5
           obstacle_min_range: 0.0
+        # line_left:  
+        #   topic: /line_scan_left  
+        #   max_obstacle_height: 0.6
+        #   clearing: True
+        #   marking: True
+        #   data_type: "LaserScan"
+        #   raytrace_max_range: 1.0
+        #   raytrace_min_range: 0.0
+        #   obstacle_max_range: 0.8
+        #   obstacle_min_range: 0.0
+        line_mid:  
+          topic: /line_scan_mid  
+          max_obstacle_height: 0.6
+          clearing: True
+          marking: True
+          data_type: "LaserScan"
+          raytrace_max_range: 1.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 0.8
+          obstacle_min_range: 0.0
+        # line_right:  
+        #   topic: /line_scan_right  
+        #   max_obstacle_height: 0.6
+        #   clearing: True
+        #   marking: True
+        #   data_type: "LaserScan"
+        #   raytrace_max_range: 1.0
+        #   raytrace_min_range: 0.0
+        #   obstacle_max_range: 0.8
+        #   obstacle_min_range: 0.0
+        # depth_camera:  
+        #   topic: /camera/depth/points  
+        #   max_obstacle_height: 0.6  
+        #   clearing: True  
+        #   marking: True  
+        #   data_type: "PointCloud2"
+        #   raytrace_max_range: 2.0
+        #   raytrace_min_range: 0.0
+        #   obstacle_max_range: 1.5
+        #   obstacle_min_range: 0.0
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: True
@@ -225,7 +271,7 @@ global_costmap:
       update_frequency: 1.0
       publish_frequency: 1.0
       global_frame: map
-      robot_base_frame: base_link
+      robot_base_frame: base_footprint
       use_sim_time: True
       robot_radius: 0.22
       resolution: 0.05
@@ -305,13 +351,13 @@ behavior_server:
     wait:
       plugin: "nav2_behaviors/Wait"
     global_frame: odom
-    robot_base_frame: base_link
+    robot_base_frame: base_footprint
     transform_tolerance: 0.1
     use_sim_time: true
     simulate_ahead_time: 2.0
     max_rotational_vel: 1.0
-    min_rotational_vel: 0.4
-    rotational_acc_lim: 3.2
+    min_rotational_vel: 0.2
+    rotational_acc_lim: 1.2
 
 robot_state_publisher:
   ros__parameters:

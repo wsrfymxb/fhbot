@@ -4,7 +4,9 @@
   <xacro:macro name="custom_four_wheel_base_gazebo" params="prefix">  
     <xacro:property name="laser_visual"      value="true"/>
     <xacro:property name="imu_visual"        value="true"/> 
-    <xacro:property name="line_laser_visual" value="true"/> 
+    <xacro:property name="left_line_laser_visual" value="false"/> 
+    <xacro:property name="mid_line_laser_visual" value="true"/>
+    <xacro:property name="right_line_laser_visual" value="false"/>
     <xacro:property name="tof_camera_visual" value="true"/> 
 
     <xacro:property name="base_laser_samples" value="360"/>
@@ -114,11 +116,12 @@
     <gazebo>  
       <plugin name='diff_drive' filename='libgazebo_ros_diff_drive.so'>  
         <ros>  
-          <namespace></namespace>  
+          <namespace>/</namespace>  
           <remapping>cmd_vel:=cmd_vel</remapping>  
           <remapping>odom:=odom</remapping>  
         </ros>  
-  
+        <update_rate>100.0</update_rate>  <!-- 限制为30Hz -->
+        <publish_rate>100.0</publish_rate> <!-- 发布频率限制 -->  
         <left_joint>wheel_left_joint</left_joint>  
         <right_joint>wheel_right_joint</right_joint>  
         <wheel_separation>0.38</wheel_separation>  
@@ -183,6 +186,14 @@
             </z>  
           </linear_acceleration>  
         </imu>  
+
+        <plugin name="gazebo_ros_imu_controller" filename="libgazebo_ros_imu_sensor.so">  
+          <ros>  
+            <namespace></namespace>  
+            <remapping>~/out:=imu</remapping>  
+          </ros>  
+          <initial_orientation_as_reference>false</initial_orientation_as_reference>  
+        </plugin>
       </sensor>  
     </gazebo>
 
@@ -228,7 +239,7 @@
         <pose>0 0 0 0 0 0</pose>
         <always_on>true</always_on>
         <update_rate>${line_laser_rate}</update_rate>
-        <visualize>${line_laser_visual}</visualize>
+        <visualize>${left_line_laser_visual}</visualize>
         <ray>
           <scan>
             <vertical>
@@ -272,7 +283,7 @@
         <pose>0 0 0 0 0 0</pose>
         <always_on>true</always_on>
         <update_rate>${line_laser_rate}</update_rate>
-        <visualize>${line_laser_visual}</visualize>
+        <visualize>${mid_line_laser_visual}</visualize>
         <ray>
           <scan>
             <vertical>
@@ -316,7 +327,7 @@
         <pose>0 0 0 0 0 0</pose>
         <always_on>true</always_on>
         <update_rate>${line_laser_rate}</update_rate>
-        <visualize>${line_laser_visual}</visualize>
+        <visualize>${right_line_laser_visual}</visualize>
         <ray>
           <scan>
             <vertical>

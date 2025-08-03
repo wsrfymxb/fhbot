@@ -27,7 +27,6 @@ from launch.substitutions import PathJoinSubstitution
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
 
-
 def generate_launch_description():
     start_rviz = LaunchConfiguration('start_rviz')
     use_sim = LaunchConfiguration('use_sim')
@@ -45,6 +44,17 @@ def generate_launch_description():
                 FindPackageShare('turtlebot3_manipulation_navigation2'),
                 'map',
                 'tb_house_map.yaml'
+            ]
+        )
+    )
+
+    ekf_params_file = LaunchConfiguration(
+        'ekf_params_file',
+        default=PathJoinSubstitution(
+            [
+                FindPackageShare('turtlebot3_manipulation_navigation2'),
+                'param',
+                'imu_fusion.yaml'
             ]
         )
     )
@@ -104,6 +114,17 @@ def generate_launch_description():
             default_value=params_file,
             description='Full path to the ROS2 parameters file to use for all launched nodes'),
 
+        # 声明EKF参数文件路径（带默认值）
+        DeclareLaunchArgument(
+            'ekf_params_file',
+            default_value=PathJoinSubstitution([
+                FindPackageShare('turtlebot3_manipulation_navigation2'),
+                'param',
+                'imu_fusion.yaml'
+            ]),
+            description='Full path to EKF parameters file'
+        ),
+        
         DeclareLaunchArgument(
             'default_bt_xml_filename',
             default_value=default_bt_xml_filename,
@@ -157,7 +178,17 @@ def generate_launch_description():
             name='initial_pose_setter',  
             output='screen'  
         ),
-        
+
+        Node(
+        package='robot_localization',
+        executable='ekf_node',
+        name='ekf_filter_node',
+        output='screen',
+        parameters=[
+            LaunchConfiguration('ekf_params_file'), 
+            {'use_sim_time': LaunchConfiguration('use_sim_time')}
+        ]),
+            
         Node(
             package='rviz2',
             executable='rviz2',

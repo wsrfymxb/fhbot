@@ -4,9 +4,9 @@
   <xacro:macro name="custom_four_wheel_base" params="prefix">    
 
     <xacro:property name="chassis_zero_height" value="0.09" />
-    <xacro:property name="chassis_length" value="0.35" />
+    <xacro:property name="chassis_length" value="0.4" />
     <xacro:property name="chassis_width" value="0.41" />
-    <xacro:property name="chassis_height" value="0.2" />
+    <xacro:property name="chassis_height" value="0.35" />
 
     <xacro:property name="driver_radius" value="0.0675" />
     <xacro:property name="driver_thickness" value="0.03" />
@@ -22,14 +22,14 @@
 
     <xacro:arg name="tof_x" default="${chassis_length/2}" />    <!-- ToF相机X位置 -->
     <xacro:arg name="tof_y" default="0" />      <!-- ToF相机Y位置 -->
-    <xacro:arg name="tof_z" default="0.2" />   <!-- ToF相机传感器Z位置 -->
+    <xacro:arg name="tof_z" default="${chassis_height}" />   <!-- ToF相机传感器Z位置 -->
     
     <xacro:arg name="line_x" default="0" />  <!-- 线激光X位置 -->
     <xacro:arg name="line_y" default="${chassis_width/2}" />    <!-- 线激光Y位置 -->
-    <xacro:arg name="line_z" default="0.1" /> <!-- 线激光Z位置 -->
+    <xacro:arg name="line_z" default="0.2" /> <!-- 线激光Z位置 -->
     <xacro:arg name="line_mid_x" default="${chassis_length/2}" />  <!-- 线激光X位置 -->
-    <xacro:arg name="line_mid_rot_y" default="0.2" />
-    <xacro:arg name="line_mid_z" default="0.15" /> <!-- 线激光Z位置 -->
+    <xacro:arg name="line_mid_rot_y" default="0.785" />
+    <xacro:arg name="line_mid_z" default="0.25" /> <!-- 线激光Z位置 -->
 
     <xacro:property name="caster_z_offset" value="${driver_radius - caster_radius}" />
 

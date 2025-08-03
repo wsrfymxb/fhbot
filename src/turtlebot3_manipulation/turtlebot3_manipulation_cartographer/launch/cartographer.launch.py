@@ -90,7 +90,19 @@ def generate_launch_description():
             executable='cartographer_occupancy_grid_node',
             output='screen',
             parameters=[{'use_sim_time': use_sim}],
-            arguments=['-resolution', resolution]),
+            arguments=['-resolution', resolution],
+            # remappings=[
+            #     ('imu', '/imu_broadcaster/imu'),
+            # ]
+            ),
+
+        Node(  
+            package="tf2_ros",  
+            executable="static_transform_publisher",  
+            arguments=["4.0", "4.0", "0.0", "0.0", "0.0", "-1.57", "map", "odom"],  
+            parameters=[{'use_sim_time': use_sim}],  
+            name="map_to_odom_initial_transform"  
+        ),
 
         Node(
             package='rviz2',
