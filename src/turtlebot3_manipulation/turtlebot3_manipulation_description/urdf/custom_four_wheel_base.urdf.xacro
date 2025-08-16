@@ -42,16 +42,16 @@
     value="package://turtlebot3_manipulation_description/meshes/turtlebot3_waffle_pi"/>
 
     <!-- Base footprint -->    
-    <link name="${prefix}base_footprint"/>    
+    <link name="${prefix}base_link"/>    
 
     <!-- Base link -->    
     <joint name="${prefix}base_joint" type="fixed">    
-      <parent link="${prefix}base_footprint"/>    
-      <child link="${prefix}base_link"/>    
-      <origin xyz="0 0 ${driver_radius}" rpy="0 0 0"/>    
+      <parent link="${prefix}base_link"/>    
+      <child link="${prefix}base_link_temp"/>    
+      <origin xyz="${-driver_x_offset} 0 ${driver_radius}" rpy="0 0 0"/>    
     </joint>   
 
-    <link name="${prefix}base_link">    
+    <link name="${prefix}base_link_temp">    
       <visual>    
         <origin xyz="0 0 ${chassis_zero_height+chassis_height/2-driver_radius}" rpy="0 0 0"/>    
         <geometry>    
@@ -79,7 +79,7 @@
     </link>    
 
     <joint name="${prefix}center_of_mass_joint" type="fixed">  
-      <parent link="${prefix}base_link"/>  
+      <parent link="${prefix}base_link_temp"/>  
       <child link="${prefix}center_of_mass_link"/>  
       <origin xyz="${chassis_heart_x_offset} ${chassis_heart_y_offset} ${chassis_zero_height+chassis_height/2-driver_radius+chassis_heart_z_offset}" rpy="0 0 0"/>  
     </joint>    
@@ -97,7 +97,7 @@
     
     <!-- Left drive wheel -->    
     <joint name="${prefix}wheel_left_joint" type="continuous">    
-      <parent link="${prefix}base_link"/>    
+      <parent link="${prefix}base_link_temp"/>    
       <child link="${prefix}wheel_left_link"/>    
       <origin xyz="${driver_x_offset} ${driver_y_offset} 0" rpy="-1.57 0 0"/>    
       <axis xyz="0 0 1"/>    
@@ -153,7 +153,7 @@
 
     <!-- Right drive wheel -->    
     <joint name="${prefix}wheel_right_joint" type="continuous">    
-      <parent link="${prefix}base_link"/>    
+      <parent link="${prefix}base_link_temp"/>    
       <child link="${prefix}wheel_right_link"/>    
       <origin xyz="${driver_x_offset} ${-driver_y_offset} 0" rpy="-1.57 0 0"/>    
       <axis xyz="0 0 1"/>    
@@ -208,7 +208,7 @@
     </link>
 
     <joint name="${prefix}caster_front_left_joint" type="fixed">    
-      <parent link="${prefix}base_link"/>    
+      <parent link="${prefix}base_link_temp"/>    
       <child link="${prefix}caster_front_left_link"/>    
       <origin xyz="${caster_x_offset} ${caster_y_offset} 0" rpy="0 0 0"/>
     </joint>    
@@ -242,7 +242,7 @@
     </link>
 
     <joint name="${prefix}caster_connector_left_joint" type="fixed">    
-      <parent link="${prefix}base_link"/>    
+      <parent link="${prefix}base_link_temp"/>    
       <child link="${prefix}caster_connector_left_link"/>    
       <origin xyz="${caster_x_offset} ${caster_y_offset} 0" rpy="0 0 0"/>
     </joint>    
@@ -276,7 +276,7 @@
     </link>
 
     <joint name="${prefix}caster_front_right_joint" type="fixed">    
-      <parent link="${prefix}base_link"/>    
+      <parent link="${prefix}base_link_temp"/>    
       <child link="${prefix}caster_front_right_link"/>    
       <origin xyz="${caster_x_offset} ${-caster_y_offset} 0" rpy="0 0 0"/>  
     </joint>
@@ -310,7 +310,7 @@
     </link>
     
     <joint name="${prefix}caster_connector_right_joint" type="fixed">    
-      <parent link="${prefix}base_link"/>    
+      <parent link="${prefix}base_link_temp"/>    
       <child link="${prefix}caster_connector_right_link"/>    
       <origin xyz="${caster_x_offset} ${-caster_y_offset} 0" rpy="0 0 0"/>  
     </joint>
@@ -344,7 +344,7 @@
     </link>
 
     <joint name="${prefix}imu_joint" type="fixed">
-      <parent link="${prefix}base_link"/>
+      <parent link="${prefix}base_link_temp"/>
       <child link="${prefix}imu_link"/>
       <origin xyz="0.0 0 ${chassis_zero_height-driver_radius-0.01}" rpy="0 0 0"/>
     </joint>
@@ -362,7 +362,7 @@
     </link> 
 
     <joint name="${prefix}scan_joint" type="fixed">
-      <parent link="${prefix}base_link"/>
+      <parent link="${prefix}base_link_temp"/>
       <child link="${prefix}base_scan"/>
       <origin xyz="${chassis_length/2-0.08} 0 ${chassis_zero_height-driver_radius+chassis_height+0.01}" rpy="0 0 0"/>
     </joint>
@@ -394,7 +394,7 @@
 
     <!-- 左线激光传感器 - 增强可视化 -->
     <joint name="${prefix}line_laser_left_joint" type="fixed">
-      <parent link="${prefix}base_link"/>
+      <parent link="${prefix}base_link_temp"/>
       <child link="${prefix}line_laser_left"/>
       <origin xyz="$(arg line_x) $(arg line_y) $(arg line_z)" rpy="1.57 0 1.57"/>
     </joint>
@@ -417,7 +417,7 @@
 
     <!-- 中线激光传感器 - 增强可视化 -->
     <joint name="${prefix}line_laser_mid_joint" type="fixed">
-      <parent link="${prefix}base_link"/>
+      <parent link="${prefix}base_link_temp"/>
       <child link="${prefix}line_laser_mid"/>
       <origin xyz="$(arg line_mid_x) 0 $(arg line_mid_z)" rpy="0 $(arg line_mid_rot_y) 0"/>
     </joint>
@@ -440,7 +440,7 @@
 
     <!-- 右线激光传感器 - 增强可视化 -->
     <joint name="${prefix}line_laser_right_joint" type="fixed">
-      <parent link="${prefix}base_link"/>
+      <parent link="${prefix}base_link_temp"/>
       <child link="${prefix}line_laser_right"/>
       <origin xyz="$(arg line_x) -$(arg line_y) $(arg line_z)" rpy="1.57 0 -1.57"/>
     </joint>
@@ -463,7 +463,7 @@
 
     <!-- 3D ToF深度相机 -->
     <joint name="${prefix}tof_camera_joint" type="fixed">
-      <parent link="${prefix}base_link"/>
+      <parent link="${prefix}base_link_temp"/>
       <child link="${prefix}tof_camera"/>
       <origin xyz="$(arg tof_x) $(arg tof_y) $(arg tof_z)" rpy="0 0 0"/>
     </joint>

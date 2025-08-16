@@ -12,10 +12,10 @@ https://github.com/ROBOTIS-GIT/turtlebot3/blob/kinetic-devel/turtlebot3_descript
     name="meshes_file_direction"
     value="package://turtlebot3_manipulation_description/meshes/turtlebot3_waffle_pi"/>
 
-  <link name="${prefix}base_footprint"/>
+  <link name="${prefix}base_link"/>
 
   <joint name="${prefix}base_joint" type="fixed">
-    <parent link="${prefix}base_footprint"/>
+    <parent link="${prefix}base_link"/>
     <child link="${prefix}base_link" />
     <origin xyz="0 0 0.010" rpy="0 0 0"/>
   </joint>

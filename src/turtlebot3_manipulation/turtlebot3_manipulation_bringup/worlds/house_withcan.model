@@ -6319,7 +6319,7 @@
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
     <model name='turtlebot3_manipulation_system'>
-      <link name='base_footprint'>
+      <link name='base_link'>
         <inertial>
           <pose>0.006905 0 0.138 0 -0 0</pose>
           <mass>10.5</mass>
@@ -6332,7 +6332,7 @@
             <izz>0.280362</izz>
           </inertia>
         </inertial>
-        <collision name='base_footprint_fixed_joint_lump__base_link_collision'>
+        <collision name='base_link_fixed_joint_lump__base_link_collision'>
           <pose>0 0 0.19 0 -0 0</pose>
           <geometry>
             <box>
@@ -6353,7 +6353,7 @@
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
-        <collision name='base_footprint_fixed_joint_lump__camera_link_collision_1'>
+        <collision name='base_link_fixed_joint_lump__camera_link_collision_1'>
           <pose>0.215 0 0.28 0 -0 0</pose>
           <geometry>
             <box>
@@ -6374,7 +6374,7 @@
             </friction>
           </surface>
         </collision>
-        <collision name='base_footprint_fixed_joint_lump__caster_connector_left_link_collision_2'>
+        <collision name='base_link_fixed_joint_lump__caster_connector_left_link_collision_2'>
           <pose>0.15 0.08 0.07 0 -0 0</pose>
           <geometry>
             <cylinder>
@@ -6396,7 +6396,7 @@
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
-        <collision name='base_footprint_fixed_joint_lump__caster_connector_right_link_collision_3'>
+        <collision name='base_link_fixed_joint_lump__caster_connector_right_link_collision_3'>
           <pose>0.15 -0.08 0.07 0 -0 0</pose>
           <geometry>
             <cylinder>
@@ -6418,7 +6418,7 @@
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
-        <collision name='base_footprint_fixed_joint_lump__caster_front_left_link_collision_4'>
+        <collision name='base_link_fixed_joint_lump__caster_front_left_link_collision_4'>
           <pose>0.15 0.08 0.025 0 -0 0</pose>
           <geometry>
             <sphere>
@@ -6447,7 +6447,7 @@
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
-        <collision name='base_footprint_fixed_joint_lump__caster_front_right_link_collision_5'>
+        <collision name='base_link_fixed_joint_lump__caster_front_right_link_collision_5'>
           <pose>0.15 -0.08 0.025 0 -0 0</pose>
           <geometry>
             <sphere>
@@ -6476,7 +6476,7 @@
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
-        <collision name='base_footprint_fixed_joint_lump__base_scan_collision_6'>
+        <collision name='base_link_fixed_joint_lump__base_scan_collision_6'>
           <pose>0.125 0 0.3 0 -0 0</pose>
           <geometry>
             <mesh>
@@ -6498,7 +6498,7 @@
           </surface>
           <max_contacts>10</max_contacts>
         </collision>
-        <visual name='base_footprint_fixed_joint_lump__base_link_visual'>
+        <visual name='base_link_fixed_joint_lump__base_link_visual'>
           <pose>0 0 0.19 0 -0 0</pose>
           <geometry>
             <box>
@@ -6513,7 +6513,7 @@
             </script>
           </material>
         </visual>
-        <visual name='base_footprint_fixed_joint_lump__camera_link_visual_1'>
+        <visual name='base_link_fixed_joint_lump__camera_link_visual_1'>
           <pose>0.215 0 0.28 0 -0 0</pose>
           <geometry>
             <box>
@@ -6521,7 +6521,7 @@
             </box>
           </geometry>
         </visual>
-        <visual name='base_footprint_fixed_joint_lump__caster_connector_left_link_visual_2'>
+        <visual name='base_link_fixed_joint_lump__caster_connector_left_link_visual_2'>
           <pose>0.15 0.08 0.07 0 -0 0</pose>
           <geometry>
             <cylinder>
@@ -6536,7 +6536,7 @@
             </script>
           </material>
         </visual>
-        <visual name='base_footprint_fixed_joint_lump__caster_connector_right_link_visual_3'>
+        <visual name='base_link_fixed_joint_lump__caster_connector_right_link_visual_3'>
           <pose>0.15 -0.08 0.07 0 -0 0</pose>
           <geometry>
             <cylinder>
@@ -6551,7 +6551,7 @@
             </script>
           </material>
         </visual>
-        <visual name='base_footprint_fixed_joint_lump__caster_front_left_link_visual_4'>
+        <visual name='base_link_fixed_joint_lump__caster_front_left_link_visual_4'>
           <pose>0.15 0.08 0.025 0 -0 0</pose>
           <geometry>
             <sphere>
@@ -6565,7 +6565,7 @@
             </script>
           </material>
         </visual>
-        <visual name='base_footprint_fixed_joint_lump__caster_front_right_link_visual_5'>
+        <visual name='base_link_fixed_joint_lump__caster_front_right_link_visual_5'>
           <pose>0.15 -0.08 0.025 0 -0 0</pose>
           <geometry>
             <sphere>
@@ -6579,7 +6579,7 @@
             </script>
           </material>
         </visual>
-        <visual name='base_footprint_fixed_joint_lump__center_of_mass_link_visual_6'>
+        <visual name='base_link_fixed_joint_lump__center_of_mass_link_visual_6'>
           <pose>0 0 0.14 0 -0 0</pose>
           <geometry>
             <sphere>
@@ -6593,7 +6593,7 @@
             </script>
           </material>
         </visual>
-        <visual name='base_footprint_fixed_joint_lump__imu_link_visual_7'>
+        <visual name='base_link_fixed_joint_lump__imu_link_visual_7'>
           <pose>0 0 0.08 0 -0 0</pose>
           <geometry>
             <cylinder>
@@ -6608,7 +6608,7 @@
             </script>
           </material>
         </visual>
-        <visual name='base_footprint_fixed_joint_lump__base_scan_visual_8'>
+        <visual name='base_link_fixed_joint_lump__base_scan_visual_8'>
           <pose>0.125 0 0.3 0 -0 0</pose>
           <geometry>
             <mesh>
@@ -6704,8 +6704,8 @@
         <kinematic>0</kinematic>
       </link>
       <joint name='wheel_left_joint' type='revolute'>
-        <pose relative_to='base_footprint'>-0.15 0.19 0.0675 -1.57 0 0</pose>
-        <parent>base_footprint</parent>
+        <pose relative_to='base_link'>-0.15 0.19 0.0675 -1.57 0 0</pose>
+        <parent>base_link</parent>
         <child>wheel_left_link</child>
         <axis>
           <xyz>0 0 1</xyz>
@@ -6784,8 +6784,8 @@
         <kinematic>0</kinematic>
       </link>
       <joint name='wheel_right_joint' type='revolute'>
-        <pose relative_to='base_footprint'>-0.15 -0.19 0.0675 -1.57 0 0</pose>
-        <parent>base_footprint</parent>
+        <pose relative_to='base_link'>-0.15 -0.19 0.0675 -1.57 0 0</pose>
+        <parent>base_link</parent>
         <child>wheel_right_link</child>
         <axis>
           <xyz>0 0 1</xyz>
@@ -6879,7 +6879,7 @@
         <publish_odom_tf>1</publish_odom_tf>
         <publish_wheel_tf>0</publish_wheel_tf>
         <odometry_frame>odom</odometry_frame>
-        <robot_base_frame>base_footprint</robot_base_frame>
+        <robot_base_frame>base_link</robot_base_frame>
       </plugin>
       <static>0</static>
       <plugin name='gazebo_ros2_control' filename='libgazebo_ros2_control.so'>
@@ -7175,7 +7175,7 @@
       <model name='turtlebot3_manipulation_system'>
         <pose>-4.80689 0.496412 -7.9e-05 -5e-06 -0.000348 0.010678</pose>
         <scale>1 1 1</scale>
-        <link name='base_footprint'>
+        <link name='base_link'>
           <pose>-4.80689 0.496412 -7.9e-05 -5e-06 -0.000348 0.010678</pose>
           <velocity>0 -0 3.2e-05 1e-06 8.5e-05 1e-06</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
