@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+  <model name='slippers'>
+    <link name='link'>
+      <pose>0 0 0 0 0 3.14</pose>
+      <visual name='visual'>
+        <geometry>
+          <mesh>
+            <uri>/root/workspace/self_gazebo_models/slippers/meshes/model.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+	          <uri>/root/workspace/self_gazebo_models/slippers/materials/scripts</uri>
+            <uri>/root/workspace/self_gazebo_models/slippers/materials/textures</uri>
+            <name>Livingroom/slippers</name>
+          </script>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <collision name='collision'>
+        <geometry>
+          <mesh>
+            <uri>/root/workspace/self_gazebo_models/slippers/meshes/model.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+    <static>1</static>
+    <allow_auto_disable>1</allow_auto_disable>
+  </model>
+</sdf>

@@ -1,0 +1,34 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+  <model name='person'>
+    <link name='link_0'>
+      <pose>0 0 0 0 0 3.14</pose>
+      <visual name='visual'>
+        <geometry>
+          <mesh>
+            <uri>/root/workspace/self_gazebo_models/person/meshes/model.dae</uri>
+            <scale>20 20 20</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+	          <uri>/root/workspace/self_gazebo_models/person/materials/scripts</uri>
+            <uri>/root/workspace/self_gazebo_models/person/materials/textures</uri>
+            <name>Livingroom/person</name>
+          </script>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <collision name='collision_0'>
+        <geometry>
+          <mesh>
+            <uri>/root/workspace/self_gazebo_models/person/meshes/model.dae</uri>
+            <scale>20 20 20</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+    <static>1</static>
+    <allow_auto_disable>1</allow_auto_disable>
+  </model>
+</sdf>

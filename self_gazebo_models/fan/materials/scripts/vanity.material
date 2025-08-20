@@ -1,0 +1,24 @@
+material Livingroom/fan
+        {
+          receive_shadows on
+          technique
+          {
+            pass
+            {
+              // ===== 基础光照属性 =====
+              ambient 0.5 0.5 0.5 1.0    // 环境光反射
+              diffuse 0.8 0.6 0.4 1.0    // 漫反射主色调
+              specular 0.2 0.2 0.2 1.0   // 镜面反射强度
+              shininess 30              // 镜面反射锐度
+              emissive 0.0 0.0 0.0   // 自发光
+              roughness 0.6             // 粗糙度
+              // ===== PBR扩展属性 =====
+              // 基础颜色贴图
+              texture_unit
+              {
+                texture suliao.jpg
+                filtering trilinear
+              }
+            }
+          }
+        }

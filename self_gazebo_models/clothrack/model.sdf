@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+  <model name='clothrack'>
+    <link name='link'>
+      <pose>0 0 0 0 0 0</pose>
+      <visual name='visual'>
+        <geometry>
+          <mesh>
+            <uri>/root/workspace/self_gazebo_models/clothrack/meshes/model.dae</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+	          <uri>/root/workspace/self_gazebo_models/clothrack/materials/scripts</uri>
+            <uri>/root/workspace/self_gazebo_models/clothrack/materials/textures</uri>
+            <name>Balcony/clothrack</name>
+          </script>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <collision name='collision'>
+        <geometry>
+          <mesh>
+            <uri>/root/workspace/self_gazebo_models/clothrack/meshes/model.dae</uri>
+            <scale>1 1 1</scale>
+          </mesh>
+        </geometry>
+      </collision>
+    </link>
+    <static>1</static>
+    <allow_auto_disable>1</allow_auto_disable>
+  </model>
+</sdf>
