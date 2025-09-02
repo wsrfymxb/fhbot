@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+  <model name='testcylinder'>
+    <link name='link'>
+      <pose>0 0 0 1.57 0 0</pose>
+      <visual name='visual'>
+        <geometry>
+          <cylinder>
+            <radius>0.04</radius>
+            <length>0.9</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+	          <uri>/root/workspace/self_gazebo_models/testcylinder/materials/scripts</uri>
+            <uri>/root/workspace/self_gazebo_models/testcylinder/materials/textures</uri>
+            <name>TestZone/testcylinder</name>
+          </script>
+        </material>
+      </visual>
+      <collision name='collision'>
+        <geometry>
+          <cylinder>
+            <radius>0.04</radius>
+            <length>0.9</length>
+          </cylinder>
+        </geometry>
+      </collision>
+    </link>
+    <static>1</static>
+    <allow_auto_disable>1</allow_auto_disable>
+  </model>
+</sdf>
